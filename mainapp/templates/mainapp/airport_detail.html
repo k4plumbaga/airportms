@@ -1,0 +1,18 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+  <div class="airport">
+    <h1>{{airport.name}}</h1>
+    <p>City: {{ airport.city }}</p>
+    <p>State: {{ airport.state }}</p>
+    <p>
+      {% for value in flight_legs %}
+      {% if airport == value.departure_airport_code %}
+      {{ value.flight_number }}
+      {% else %}
+      No.
+      {% endif %}
+      {% endfor %}
+      </p>
+  </div>
+{% endblock %}
