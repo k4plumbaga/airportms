@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Airport,Flight,Flight_Leg,Airplane,Leg_Instance,Fare,Company,Airplane_Type,FFC,Customer,Seat,Airline,Airplane_Manufacturer
 admin.site.register(Airport)
 admin.site.register(Flight)

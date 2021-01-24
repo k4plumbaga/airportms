@@ -1,7 +1,7 @@
 from django.db import models
 
 class Airport(models.Model):
-    airport_code = models.AutoField(primary_key=True)
+    airport_code = models.CharField(primary_key=True, max_length=30)
     name = models.CharField(max_length=200)
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
@@ -12,27 +12,28 @@ class Airport(models.Model):
 class Company(models.Model):
     company_name = models.CharField(primary_key=True, max_length=250)
     contact_number = models.CharField(max_length=30)
-
+    def __str__(self):
+        return self.company_name
     class Meta:
         unique_together = ('company_name', 'contact_number')
 
 class Airplane_Manufacturer(models.Model):
     id = models.AutoField(primary_key=True)
-    company_name = models.ForeignKey(Company, on_delete=models.CASCADE, default="", editable=False, related_name='airplane_manufacturer_company')
-    contact_number = models.ForeignKey(Company, on_delete=models.CASCADE, default="", editable=False, related_name='airplane_manufacturer_contact')
+    company_name = models.ForeignKey(Company, on_delete=models.CASCADE, default="", related_name='airplane_manufacturer_company')
+    contact_number = models.ForeignKey(Company, on_delete=models.CASCADE, default="", related_name='airplane_manufacturer_contact')
     def __str__(self):
-        return self.company_name
+        return str(self.company_name)
 
     class Meta:
         unique_together = ('company_name', 'contact_number')
 
 class Airline(models.Model):
     id = models.AutoField(primary_key=True)
-    company_name = models.ForeignKey(Company, on_delete=models.CASCADE, default="", editable=False, related_name='airline_company')
-    contact_number = models.ForeignKey(Company, on_delete=models.CASCADE, default="", editable=False, related_name='airline_contact')
+    company_name = models.ForeignKey(Company, on_delete=models.CASCADE, default="", related_name='airline_company')
+    contact_number = models.ForeignKey(Company, on_delete=models.CASCADE, default="", related_name='airline_contact')
     using_airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='airline_using_ap')
     def __str__(self):
-        return self.company_name
+        return str(self.company_name)
 
     class Meta:
         unique_together = ('company_name', 'contact_number')
@@ -99,14 +100,14 @@ class Fare(models.Model):
         unique_together = ('flight_number','fare_code')
 
     def __str__(self):
-        return self.flight_number+"."+str(self.fare_code)+":"+str(self.amount)
+        return str(self.flight_number)+"."+str(self.fare_code)+":"+str(self.amount)
 
 class Customer(models.Model):
     id = models.AutoField(primary_key=True, default="")
     passport_number = models.CharField(max_length=30)
     country = models.CharField(max_length=100)
     customer_name = models.CharField(max_length=100)
-    customer_phone = models.CharField(max_length=16)
+    customer_phone = models.CharField(max_length=30)
     address = models.TextField()
     email = models.CharField(max_length=150)
     def __str__(self):

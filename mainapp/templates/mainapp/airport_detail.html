@@ -7,11 +7,11 @@
     <p>State: {{ airport.state }}</p>
     <p>
       {% for value in flight_legs %}
-      {% if airport == value.departure_airport_code %}
-      {{ value.flight_number }}
-      {% else %}
-      No.
-      {% endif %}
+        {% if airport == value.departure_airport_code %}
+          {{ value.flight_number }}
+        {% else %}
+          No.
+        {% endif %}
       {% endfor %}
       </p>
   </div>
