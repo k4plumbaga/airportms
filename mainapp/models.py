@@ -72,6 +72,9 @@ class Airplane(models.Model):
     total_number_of_seats = models.IntegerField()
     airplane_type = models.ForeignKey(Airplane_Type, on_delete=models.CASCADE, related_name='airplane_airplane_type')
 
+    def __str__(self):
+        return "id:"+str(self.airplane_id)
+
 class Leg_Instance(models.Model):
     id = models.AutoField(primary_key=True)
     flight_number = models.ForeignKey(Flight_Leg, on_delete=models.CASCADE, related_name='legInstance_flight_number')
@@ -85,7 +88,7 @@ class Leg_Instance(models.Model):
     arrival_time = models.TimeField()
 
     def __str__(self):
-        return str(self.flight_number) + "." + str(self.leg_number) + "/" + str(self.date)
+        return str(self.flight_number) + ", Tarih:" + str(self.date)
 
     class Meta:
         unique_together = ('flight_number', 'leg_number', 'date')
@@ -100,7 +103,7 @@ class Fare(models.Model):
         unique_together = ('flight_number','fare_code')
 
     def __str__(self):
-        return str(self.flight_number)+"."+str(self.fare_code)+":"+str(self.amount)
+        return str(self.flight_number)+", Class:"+str(self.fare_code)+", Amount:"+str(self.amount)
 
 class Customer(models.Model):
     id = models.AutoField(primary_key=True, default="")
@@ -110,6 +113,7 @@ class Customer(models.Model):
     customer_phone = models.CharField(max_length=30)
     address = models.TextField()
     email = models.CharField(max_length=150)
+
     def __str__(self):
         return self.customer_name
 
@@ -126,7 +130,7 @@ class Seat(models.Model):
     country = models.ForeignKey(Customer, on_delete=models.CASCADE, default="", related_name='customer_country')
 
     def __str__(self):
-        return str(self.flight_number) + "." + str(self.leg_number) + "." + str(self.seat_number)
+        return str(self.flight_number) +", Seat=" + str(self.seat_number)
 
     class Meta:
         unique_together = ('flight_number','leg_number','date','seat_number')
@@ -141,4 +145,4 @@ class FFC(models.Model):
         unique_together = ('passport_number', 'country')
 
     def __str__(self):
-        return self.passport_number
+        return str(self.passport_number)

@@ -13,7 +13,7 @@
       <tbody>
         {% for airport in airports %}
           <tr>
-            <td><a href="{% url 'flight_list' pk=airport.pk %}">{{ airport.name }}</td>
+            <td><a href="{% url 'flight_list' pk=airport.pk %}">{{ airport.name }}</a></td>
             <td>{{ airport.city }}</td>
             <td>{{ airport.state }}</td>
           </tr>

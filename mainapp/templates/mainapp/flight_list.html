@@ -1,6 +1,52 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
-  <div class="">
-    aaaaaaaaaaaaaaa
+  <div class="airport">
+    <h1>{{airport.name}}</h1>
+    <p>City: {{ airport.city }}</p>
+    <p>State: {{ airport.state }}</p>
+    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+    <table class="table table-striped table-bordered table-hover" id="dataTable">
+      <thead class="thead-dark">
+        <tr>
+          <th>Flight number.Leg Number</th>
+          <th>Leg Date</th>
+          <th>Departure Airport</th>
+          <th>Arrival Airport</th>
+          <th>Scheduled Departure Time</th>
+          <th>Scheduled Arrival Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for value in leg_instance %}
+          {% if airport == value.departure_airport_code or airport == value.arrival_arport_code  %}
+            <tr>
+              <td><a href="{% url 'seats' id=value.id %}">{{ value.flight_number }}</a></td>
+              <td>{{ value.date }}</td>
+              {% if airport == value.departure_airport_code %}
+                <td style="color:#006100"><b>{{ value.departure_airport_code }}</b></td>
+              {% else %}
+                <td>{{ value.departure_airport_code }}</td>
+              {% endif %}
+              {% if airport == value.arrival_arport_code %}
+                <td style="color:#006100"><b>{{ value.arrival_arport_code }}</b></td>
+              {% else %}
+                <td>{{ value.arrival_arport_code }}</td>
+              {% endif %}
+              <td>{{ value.departue_time }}</td>
+              <td>{{ value.arrival_time }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td><strong>Flight number.Leg Number</strong></td>
+          <td><strong>Departure Airport</strong></td>
+          <td><strong>Arrival Airport</strong></td>
+          <td><strong>Scheduled Departure Time</strong></td>
+          <td><strong>Scheduled Arrival Time</strong></td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
 {% endblock %}
