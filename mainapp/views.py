@@ -1,14 +1,33 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Airport,Flight,Flight_Leg,Seat,Customer,Leg_Instance,FFC
+import datetime
+from django.utils import timezone
+from django.db.models.functions import TruncMonth
+from django.db.models import Count
+
+def all_customers(request):
+    customers = Customer.objects.all()
+    return render(request, 'mainapp/all_customers.html', {'customers':customers})
+
+def all_flights(request):
+    leg_instances = Leg_Instance.objects.all()
+    return render(request, 'mainapp/all_flights.html', {'leg_instances':leg_instances})
+
+def home(request):
+    airports = Airport.objects.all()
+    leg_instances = Leg_Instance.objects.all()
+    most_airports=(Leg_Instance.objects.values('departure_airport_code').annotate(dcount=Count('departure_airport_code')).order_by('-dcount'))
+    most_airports_names = [i['departure_airport_code'] for i in most_airports]
+    most_airports_counts = [i['dcount'] for i in most_airports]
+    months_counts = []
+    for i in range(12):
+        months_counts.append(Leg_Instance.objects.filter(date__month = str(i+1)).count())
+    customers = Customer.objects.all()
+    return render(request, 'mainapp/home.html', {'airports':airports, 'leg_instances':leg_instances, 'customers':customers, 'months':months_counts, 'most_airports_counts':most_airports_counts, 'most_airports_names':most_airports_names, })
 
 def airport_list(request):
     airports = Airport.objects.order_by('name')
     return render(request, 'mainapp/airport_list.html', {'airports':airports})
-
-def airport_detail(request, pk):
-    airport = get_object_or_404(Airport, pk = pk)
-    flight_legs = Flight_Leg.objects.all()
-    return render(request, 'mainapp/airport_detail.html', {'airport' : airport, 'flight_legs':flight_legs})
 
 def flight_list(request, pk):
     airport = get_object_or_404(Airport, pk = pk)

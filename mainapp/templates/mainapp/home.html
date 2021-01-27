@@ -1,0 +1,83 @@
+{% extends 'mainapp/base.html' %}
+{% block content %}
+  <h1 class="text-center" style="margin-bottom:30px">Wellcome to Airport Management System!</h1>
+  <div class="row text-center justify-content-center">
+    <div class="col-md-6 col-xl-3 mb-4">
+      <div class="card shadow-lg border-left-success py-2">
+        <div class="card-body">
+          <div class="row align-items-center no-gutters">
+            <div class="col mr-2">
+              <div class="text-uppercase text-primary font-weight-bold text-xs mb-1 fs-5"><span>Total Number Of Airports</span></div>
+              <div class="text-dark font-weight-bold h5 mb-0"><span>{{airports|length}}</span></div>
+            </div>
+            <div class="col-auto"><i class="fas fa-warehouse fa-2x text-gray-300"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-3 mb-4">
+      <div class="card shadow-lg border-left-success py-2">
+        <div class="card-body">
+          <div class="row align-items-center no-gutters">
+            <div class="col mr-2">
+              <div class="text-uppercase text-danger font-weight-bold text-xs mb-1 fs-5"><span>Total Number Of Flights</span></div>
+              <div class="text-dark font-weight-bold h5 mb-0"><span>{{leg_instances|length}}</span></div>
+            </div>
+            <div class="col-auto"><i class="fas fa-plane fa-2x text-gray-300"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-3 mb-4">
+      <div class="card shadow-lg border-left-success py-2">
+        <div class="card-body">
+          <div class="row align-items-center no-gutters">
+            <div class="col mr-2">
+              <div class="text-uppercase text-success font-weight-bold text-xs mb-1 fs-5"><span>Total Number Of Customers</span></div>
+              <div class="text-dark font-weight-bold h5 mb-0"><span>{{customers|length}}</span></div>
+            </div>
+            <div class="col-auto"><i class="fas fa-users fa-2x text-gray-300"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-xl-7 col-xl-6">
+      <div class="card shadow-lg mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h6 class="text-primary font-weight-bold m-0 fs-5">Number of Flights by month</h6>
+        </div>
+        <div class="card-body">
+          <div class="chart-area">
+            <canvas  height="300" data-bs-chart="{&quot;type&quot;:&quot;line&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;January&quot;,&quot;February&quot;,&quot;March&quot;,&quot;April&quot;,&quot;May&quot;,&quot;June&quot;,&quot;July&quot;,&quot;August&quot;,&quot;September&quot;,&quot;October&quot;,&quot;November&quot;,&quot;December&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;Total Flights&quot;,&quot;fill&quot;:true,&quot;data&quot;:[&quot;{{ months.0}}&quot;,&quot;{{ months.1}}&quot;,&quot;{{ months.2}}&quot;,&quot;{{ months.3}}&quot;,&quot;{{ months.4}}&quot;,&quot;{{ months.5}}&quot;,&quot;{{ months.6}}&quot;,&quot;{{ months.7}}&quot;,&quot;{{ months.8}}&quot;,&quot;{{ months.9}}&quot;,&quot;{{ months.10}}&quot;,&quot;{{ months.11}}&quot;],&quot;backgroundColor&quot;:&quot;rgba(78, 115, 223, 0.05)&quot;,&quot;borderColor&quot;:&quot;rgba(78, 115, 223, 1)&quot;,&quot;borderWidth&quot;:&quot;3&quot;}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{&quot;display&quot;:false},&quot;scales&quot;:{&quot;xAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;5&quot;],&quot;zeroLineBorderDash&quot;:[&quot;10&quot;],&quot;drawOnChartArea&quot;:true},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;beginAtZero&quot;:false,&quot;padding&quot;:20}}],&quot;yAxes&quot;:[{&quot;gridLines&quot;:{&quot;color&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;zeroLineColor&quot;:&quot;rgb(234, 236, 244)&quot;,&quot;drawBorder&quot;:false,&quot;drawTicks&quot;:false,&quot;borderDash&quot;:[&quot;5&quot;],&quot;zeroLineBorderDash&quot;:[&quot;10&quot;]},&quot;ticks&quot;:{&quot;fontColor&quot;:&quot;#858796&quot;,&quot;beginAtZero&quot;:false,&quot;padding&quot;:20}}]}}}">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5 col-xl-4">
+      <div class="card shadow-lg mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h6 class="text-primary font-weight-bold m-0"></h6>
+          <h6 class="text-primary font-weight-bold m-0 fs-5">Most Used Departure Airports</h6>
+          <p></p>
+        </div>
+        <div class="card-body">
+          <div class="chart-area">
+            <canvas height="255" data-bs-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;{{most_airports_names.0}}&quot;,&quot;{{most_airports_names.1}}&quot;,&quot;{{most_airports_names.2}}&quot;,&quot;{{most_airports_names.3}}&quot;,&quot;{{most_airports_names.4}}&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;backgroundColor&quot;:[&quot;#4e73df&quot;,&quot;#1cc88a&quot;,&quot;#36b9cc&quot;,&quot;rgba(255,0,0,0.7)&quot;,&quot;orange&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;{{most_airports_counts.0}}&quot;,&quot;{{most_airports_counts.1}}&quot;,&quot;{{most_airports_counts.2}}&quot;,&quot;{{most_airports_counts.3}}&quot;,&quot;{{most_airports_counts.4}}&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{&quot;display&quot;:false}}}">
+            </canvas>
+          </div>
+          <div class="text-center small mt-4"><span class="mr-2"><i
+                class="fas fa-circle text-primary"></i>&nbsp;{{most_airports_names.0}}&emsp;</span>
+            <span class="mr-2"><i class="fas fa-circle text-success"></i>&nbsp;{{most_airports_names.1}}&emsp;</span>
+            <span class="mr-2"><i class="fas fa-circle text-info"></i>&nbsp;{{most_airports_names.2}}&emsp;</span>
+            <span class="mr-2"><i class="fas fa-circle text-primary"
+                style="color: rgba(255,0,0,0.7);filter: brightness(103%) contrast(200%) grayscale(0%) hue-rotate(137deg) invert(0%);"></i>&nbsp;{{most_airports_names.3}}&emsp;</span>
+            <span class="mr-2"><i class="fas fa-circle text" style="color: orange;"></i>&nbsp;{{most_airports_names.4}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

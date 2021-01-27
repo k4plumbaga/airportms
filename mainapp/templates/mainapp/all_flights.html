@@ -1,12 +1,10 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
 <div class="card shadow-lg p-3 mb-5 bg-white rounded">
-  <div class="card-header bg-warning text-center text-dark">
-    <h1>{{airport.name}}</h1>
+  <div class="card-header bg-danger text-center text-light">
+    <h1>All Flights</h1>
   </div>
 <div class="card-body bg-light">
-    <h5>City: {{ airport.city }}</h5>
-    <h5>State: {{ airport.state }}</h5>
     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
       <table class="table table-striped table-bordered table-hover fs-5" id="dataTable" style="line-height: 50px;">
         <thead class="table-dark">
@@ -20,25 +18,15 @@
         </tr>
       </thead>
       <tbody>
-        {% for value in leg_instance %}
-          {% if airport == value.departure_airport_code or airport == value.arrival_arport_code  %}
+        {% for value in leg_instances %}
             <tr>
-              <td><a href="{% url 'seats' id=value.id %}">{{ value.flight_number }}</a></td>
+              <td><a href="{% url 'seats' id=value.id %}" style="text-decoration:none">{{ value.flight_number }}</a></td>
               <td class="table-primary">{{ value.date }}</td>
-              {% if airport == value.departure_airport_code %}
-                <td style="color:#006100"><b>{{ value.departure_airport_code }}</b></td>
-              {% else %}
-                <td>{{ value.departure_airport_code }}</td>
-              {% endif %}
-              {% if airport == value.arrival_arport_code %}
-                <td style="color:#006100"><b>{{ value.arrival_arport_code }}</b></td>
-              {% else %}
-                <td>{{ value.arrival_arport_code }}</td>
-              {% endif %}
-              <td>{{ value.departue_time }}</td>
-              <td>{{ value.arrival_time }}</td>
+              <td class="table-success">{{ value.departure_airport_code }}</td>
+              <td class="table-warning">{{ value.arrival_arport_code }}</td>
+              <td class="table-success">{{ value.departue_time }}</td>
+              <td class="table-warning">{{ value.arrival_time }}</td>
             </tr>
-            {% endif %}
         {% endfor %}
       </tbody>
       <tfoot>

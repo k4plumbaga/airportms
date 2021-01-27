@@ -1,31 +1,38 @@
 {% extends 'mainapp/base.html' %}
 {% block content %}
-  <input type="text" class="form-control mb-2" style="float:left;max-width:600px;display:block;" id="myInput" onkeyup="myFunction()" placeholder="Havalimanı Adı ile ara...">
-  <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-    <table class="table table-striped table-bordered table-hover" id="dataTable">
-      <thead class="thead-dark">
-        <tr>
-          <th>Airport Name</th>
-          <th>City</th>
-          <th>State</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for airport in airports %}
-          <tr>
-            <td><a href="{% url 'flight_list' pk=airport.pk %}">{{ airport.name }}</a></td>
-            <td>{{ airport.city }}</td>
-            <td>{{ airport.state }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-      <tfoot>
-        <tr>
-          <td><strong>Airport Name</strong></td>
-          <td><strong>City</strong></td>
-          <td><strong>State</strong></td>
-        </tr>
-      </tfoot>
-    </table>
+<div class="card shadow-lg p-3 mb-5 bg-white rounded">
+  <div class="card-header bg-primary text-center text-light">
+    <h1>Airports</h1>
   </div>
+  <div class="card-body bg-light">
+    <input type="text" class="form-control mb-2 fs-5" style="float:left;max-width:800px;display:block;" id="myInput" onkeyup="myFunction()" placeholder="Havalimanı Adı ile ara...">
+    <div class="table-responsive-xl table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+      <table class="table table-striped table-bordered table-hover fs-5" id="dataTable" style="line-height: 50px;">
+        <thead class="table-dark">
+          <tr>
+            <th>Airport Name</th>
+            <th>City</th>
+            <th>State</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for airport in airports %}
+            <tr>
+              <td><a href="{% url 'flight_list' pk=airport.pk %}" style="text-decoration: none">{{ airport.name }}</a></td>
+              <td class="table-primary">{{ airport.city }}</td>
+              <td class="table-warning">{{ airport.state }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td><strong>Airport Name</strong></td>
+            <td><strong>City</strong></td>
+            <td><strong>State</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
 {% endblock %}

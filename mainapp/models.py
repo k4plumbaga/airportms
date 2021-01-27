@@ -89,7 +89,6 @@ class Leg_Instance(models.Model):
 
     def __str__(self):
         return str(self.flight_number) + ", Tarih:" + str(self.date)
-
     class Meta:
         unique_together = ('flight_number', 'leg_number', 'date')
 
