@@ -20,7 +20,7 @@
       <tbody>
         {% for value in customers %}
             <tr>
-              <td class="table-primary"><a href="{% url 'customers' passport_number=value.passport_number country=value.country %}">{{ value.passport_number }}</a></td>
+              <td class="table-primary"><a href="{% url 'customers' passport_number=value.passport_number country=value.country %}" style="text-decoration:none">{{ value.passport_number }}</a></td>
               <td class="table-primary">{{ value.country }}</td>
               <td class="table-primary">{{ value.customer_name }}</td>
               <td class="table-warning">{{ value.customer_phone }}</td>

@@ -5,7 +5,7 @@
     <h1>Airports</h1>
   </div>
   <div class="card-body bg-light">
-    <input type="text" class="form-control mb-2 fs-5" style="float:left;max-width:800px;display:block;" id="myInput" onkeyup="myFunction()" placeholder="Havalimanı Adı ile ara...">
+    <input type="text" class="form-control mb-2 fs-5" style="float:left;max-width:800px;display:block;" id="myInput" onkeyup="myFunction()" placeholder="Search with airport name...">
     <div class="table-responsive-xl table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
       <table class="table table-striped table-bordered table-hover fs-5" id="dataTable" style="line-height: 50px;">
         <thead class="table-dark">
@@ -35,4 +35,25 @@
     </div>
   </div>
 </div>
+<script>
+  function myFunction() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("dataTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+</script>
 {% endblock %}
