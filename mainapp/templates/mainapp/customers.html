@@ -14,6 +14,17 @@
     {% for freq in ffcs%}
       {%if customers == freq.passport_number %}
         <p><b>Toplam kat edilen mesafe: </b>{{freq.milleage}}</p>
+        {% if freq.milleage >= 40000 %}
+          <p><b>Member Type: PLANTİNUM</b></p>
+        {% elif  25000 <= freq.milleage and freq.milleage < 40000 %}
+          <p><b>Member Type: GOLD </b></p>
+        {% elif  15000 <= freq.milleage and freq.milleage < 25000 %}
+          <p><b>Member Type: SILVER </b></p>
+        {% elif  10000 <= freq.milleage and freq.milleage < 15000 %}
+          <p><b>Member Type: BRONZE </b></p>
+        {% else %}
+          <p><b>Member Type: STANDART </b></p>
+        {% endif %}
       {% endif %}
     {% endfor %}
     <h4><b>All Flights</b></h4>
